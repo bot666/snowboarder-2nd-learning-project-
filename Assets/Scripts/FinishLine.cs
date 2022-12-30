@@ -5,11 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class FinishLine : MonoBehaviour
 {
+    [SerializeField] ParticleSystem finishLine;
+    [SerializeField] float delayAmount = 2f;
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
-            SceneManager.LoadScene(0);
+            finishLine.Play();
+            GetComponent<AudioSource>().Play();
+            Invoke("reloadScene", delayAmount);
         }
+    }
+
+    void reloadScene()
+    {
+
+        SceneManager.LoadScene(0);
     }
 }
